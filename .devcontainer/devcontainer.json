@@ -1,0 +1,107 @@
+{
+  "name": "base devcontainer",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "capAdd": [
+    "SYS_PTRACE"
+  ],
+  "securityOpt": [
+    "seccomp=unconfined"
+  ],
+  "mounts": [
+    {
+      "source": "${localEnv:HOME}/.zshrc",
+      "target": "/root/.zshrc",
+      "type": "bind"
+    },
+    {
+      "source": "${localEnv:HOME}/.config/starship.toml",
+      "target": "/root/.config/starship.toml",
+      "type": "bind"
+    },
+    {
+      "source": "${localEnv:HOME}/.config/bat/config",
+      "target": "/root/.config/bat/config",
+      "type": "bind"
+    }
+  ],
+  "features": {
+    "ghcr.io/devcontainers-extra/features/act-asdf:2": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "dockerDashComposeVersion": "v2"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true,
+      "username": "root"
+    },
+    "ghcr.io/devcontainers-extra/features/starship:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "streetsidesoftware.code-spell-checker",
+        "ms-azuretools.vscode-docker",
+        "tamasfe.even-better-toml",
+        "golang.Go"
+      ],
+      "settings": {
+        "files.eol": "\n",
+        "remote.extensionKind": {
+          "ms-azuretools.vscode-docker": "workspace"
+        },
+        "go.toolsManagement.checkForUpdates": "local",
+        "go.toolsManagement.autoUpdate": true,
+        "go.gopath": "/go",
+        "go.goroot": "/usr/local/go",
+        "go.useLanguageServer": true,
+        "[go]": {
+          "editor.defaultFormatter": "golang.go",
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+          }
+        },
+        "[go.mod]": {
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+          }
+        },
+        "gopls": {
+          "build.buildFlags": [
+            "-tags",
+            ""
+          ],
+          "formatting.gofumpt": true,
+          "ui.completion.usePlaceholders": false,
+          "ui.diagnostic.staticcheck": true,
+          "ui.semanticTokens": true
+        },
+        "go.lintTool": "golangci-lint",
+        "go.lintOnSave": "package",
+        "go.testFlags": [
+          "-v",
+          "-race"
+        ],
+        "go.testTimeout": "30s",
+        "go.coverOnSingleTest": true,
+        "go.coverOnSingleTestFile": true,
+        "go.coverOnTestPackage": true,
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "editor.bracketPairColorization.enabled": true,
+        "editor.guides.bracketPairs": "active",
+        "workbench.iconTheme": "catppuccin-mocha",
+        "editor.fontFamily": "'Fira Code', Menlo, Monaco, 'Courier New', monospace",
+        "editor.fontLigatures": true,
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true
+      }
+    }
+  },
+  "postCreateCommand": {
+    "modules": "go mod download"
+  },
+  "remoteUser": "root",
+  "containerUser": "root",
+  "containerEnv": {}
+}
