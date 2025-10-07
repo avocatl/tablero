@@ -1,7 +1,6 @@
-ARG GO_VERSION=1
-ARG VARIANT=bookworm
+FROM mcr.microsoft.com/devcontainers/go:dev-1.25-bookworm
 
-FROM mcr.microsoft.com/vscode/devcontainers/go:${GO_VERSION}-${VARIANT}
+LABEL maintainer="Avocatl Software"
 
 RUN apt-get update && apt-get install -y exa bat curl && apt-get clean
 
@@ -11,3 +10,5 @@ RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUS
 RUN go install github.com/go-task/task/v3/cmd/task@latest
 RUN go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest
 RUN go install github.com/goreleaser/goreleaser/v2@latest
+RUN go install github.com/pressly/goose/v3/cmd/goose@latest
+RUN go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
